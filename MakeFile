@@ -1,0 +1,46 @@
+# Makefile to create directory structure for a project
+
+# Variables
+MAIN_DIR ?= main
+CONFIG_DIR = $(MAIN_DIR)/config
+LOG_DIR = $(MAIN_DIR)/logs
+OUTPUT_DIR = $(MAIN_DIR)/results
+SCRIPT_DIR = $(MAIN_DIR)/src
+TEST_DIR = $(MAIN_DIR)/tests
+TIMESTAMP = $(shell date +"%Y-%m-%d %H:%M:%S")
+
+# Default target
+all: $(MAIN_DIR) directories
+
+$(MAIN_DIR):
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $(MAIN_DIR)/creation.log
+
+# Create directory structure
+directories: $(CONFIG_DIR) $(LOG_DIR) $(OUTPUT_DIR) $(SCRIPT_DIR) $(TEST_DIR)
+
+$(CONFIG_DIR): $(MAIN_DIR)
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $@/creation.log
+
+$(LOG_DIR): $(MAIN_DIR)
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $@/creation.log
+
+$(OUTPUT_DIR): $(MAIN_DIR)
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $@/creation.log
+
+$(SCRIPT_DIR): $(MAIN_DIR)
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $@/creation.log
+
+$(TEST_DIR): $(MAIN_DIR)
+	mkdir -p $@
+	@echo "Created $@ at $(TIMESTAMP)" >> $@/creation.log
+
+# Clean up directories (optional)
+clean:
+	rm -rf $(MAIN_DIR)
+
+.PHONY: all directories clean
